@@ -1,42 +1,31 @@
 # Operación Ventilador
 
-Aplicación web estática para GitHub Pages del juego de despedida de 2º ESO "Operación Ventilador".
+**La última misión de 2º ESO**
 
-## Archivos
+Juego interactivo de despedida para 2º ESO A: preguntas de Matemáticas, Física y Química, bonus emocionales, marcadores por equipos, sonidos, ventilador animado y misión final de supervivencia al calor de junio.
 
-- `index.html`
-- `style.css`
-- `script.js`
-- `assets/img/`
-- `assets/sounds/`
+## Jugar
 
-## Recursos locales usados
+👉 **[Abrir Operación Ventilador](https://cmramosg01.github.io/operacion-ventilador/)**
 
-Imagenes:
+## Descripción
 
-- `assets/img/arbol.gif`
-- `assets/img/fan.gif`
-- `assets/img/hojas.gif`
-- `assets/img/intensidad.gif`
-- `assets/img/tornado.gif`
-- `assets/img/viento.gif`
-- `assets/img/logo-cienciasymates.png`
+**Operación Ventilador** es una pequeña web-juego creada para una sesión especial de final de curso.
 
-Sonidos:
+El alumnado participa por equipos en un tablero 5x5 con preguntas curriculares y casillas especiales. Hay marcadores, sonidos, efectos visuales y una misión común: sobrevivir al final de curso con 40º.
 
-- `assets/sounds/applause.mp3`
-- `assets/sounds/tada.mp3`
-- `assets/sounds/shock.mp3`
-- `assets/sounds/viento.mp3`
-- `assets/sounds/whooshes.mp3`
-- `assets/sounds/winner-game-sound.mp3`
+Aunque haya marcador, la idea es que todo el mundo participe y reciba una recompensa.
 
-No usa frameworks, CDNs, backend ni recursos externos.
+## Contenidos
 
-## Uso
+- Matemáticas
+- Física
+- Química
+- Bonus emocionales de despedida
+- Trabajo en equipo
+- Participación de profes valientes
 
-Abre `index.html` en el navegador o publica la carpeta completa en GitHub Pages.
+## Autora
 
-El juego permite configurar de 2 a 4 equipos, sortear inicio, jugar un tablero 5x5, usar marcadores manuales, activar sonidos locales, modo pantalla completa y guardar el estado en `localStorage`.
-
-Firma incluida: Hecho con amor por Cristina · [www.cienciasymates.com](https://www.cienciasymates.com)
+Hecho con amor por Cristina.  
+[www.cienciasymates.com](https://www.cienciasymates.com)
