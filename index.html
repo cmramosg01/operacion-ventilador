@@ -32,8 +32,8 @@
           </div>
           <p class="eyebrow">La última misión de 2º ESO</p>
           <h1 id="startTitle">Operación Ventilador</h1>
-          <h2>Cómo sobrevivir al final de curso a 40 grados</h2>
-          <p class="intro">El curso llega a su fin. Hace calor. Mucho calor... Solo un equipo podrá dominar el marcador, pero todos ganaréis viento fresco.</p>
+          <h2>Cómo sobrevivir al calor del final de curso</h2>
+          <p class="intro">El curso llega a su fin. Hace calor. Mucho calor... Solo un equipo podrá dominar el marcador, pero todos ganaremos viento fresco.</p>
           <div class="hero-actions">
             <button id="startButton" class="primary-button" type="button">Empezar misión</button>
             <button id="resetStorageStart" class="ghost-button" type="button">Reiniciar partida</button>
@@ -54,7 +54,7 @@
         <p class="notice">Organizad los equipos intentando que haya un número parecido de personas en cada uno.</p>
 
         <div class="setup-row">
-          <label for="teamCount">Numero de equipos</label>
+          <label for="teamCount">Número de equipos</label>
           <select id="teamCount">
             <option value="2" selected>2 equipos</option>
             <option value="3">3 equipos</option>
@@ -65,6 +65,7 @@
         <div id="teamInputs" class="team-inputs"></div>
 
         <div class="setup-actions">
+          <button class="ghost-button" type="button" data-go-start>Volver al inicio</button>
           <button id="drawStarter" class="secondary-button" type="button">Sortear inicio</button>
           <output id="starterResult" class="starter-result" aria-live="polite"></output>
           <button id="createBoard" class="primary-button" type="button">Crear tablero</button>
@@ -92,6 +93,7 @@
           <div class="section-head">
             <h2 id="boardTitle">Tablero 5x5</h2>
             <div class="board-actions">
+              <button class="ghost-button small" type="button" data-go-start>Volver al inicio</button>
               <button id="turboButton" class="secondary-button small" type="button">Modo ventilador turbo</button>
               <button id="resetGame" class="ghost-button small" type="button">Reiniciar partida</button>
             </div>
@@ -124,6 +126,7 @@
           <img class="brand-logo" src="assets/img/logo-cienciasymates.png" alt="Ciencias y Mates">
           <a href="https://www.cienciasymates.com" target="_blank" rel="noopener">www.cienciasymates.com</a>
         </div>
+        <button class="ghost-button" type="button" data-go-start>Volver al inicio</button>
         <button id="playAgain" class="ghost-button" type="button">Reiniciar partida</button>
       </div>
     </section>
