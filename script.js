@@ -109,6 +109,9 @@ function prepareResources() {
 // Pantalla de configuracion: equipos editables y sorteo de inicio.
 function bindEvents() {
   $("#startButton").addEventListener("click", () => showScreen("setup"));
+  $$("[data-go-start]").forEach((button) => {
+    button.addEventListener("click", () => showScreen("start"));
+  });
   $("#resetStorageStart").addEventListener("click", resetEverything);
   $("#teamCount").addEventListener("change", renderTeamInputs);
   $("#drawStarter").addEventListener("click", drawStarter);
