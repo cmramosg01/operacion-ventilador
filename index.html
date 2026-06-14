@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Operación Ventilador</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#app">Saltar al juego</a>
+
+  <div class="ambient" aria-hidden="true">
+    <span>40 grados</span>
+    <span>x²</span>
+    <span>F = m · a</span>
+    <span>H₂O</span>
+    <span>Δ</span>
+  </div>
+
+  <button id="soundToggle" class="utility-button sound-button" type="button">Activar sonido</button>
+  <button id="fullscreenButton" class="utility-button fullscreen-button" type="button">Pantalla completa</button>
+
+  <img id="floatingFan" class="floating-fan" src="assets/img/fan.gif" alt="Ventilador animado">
+
+  <main id="app">
+    <section id="screenStart" class="screen start-screen active" aria-labelledby="startTitle">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="brand-line">
+            <img class="brand-logo" src="assets/img/logo-cienciasymates.png" alt="Ciencias y Mates">
+            <a href="https://www.cienciasymates.com" target="_blank" rel="noopener">www.cienciasymates.com</a>
+          </div>
+          <p class="eyebrow">La última misión de 2º ESO</p>
+          <h1 id="startTitle">Operación Ventilador</h1>
+          <h2>Cómo sobrevivir al final de curso a 40 grados</h2>
+          <p class="intro">El curso llega a su fin. Hace calor. Mucho calor... Solo un equipo podrá dominar el marcador, pero todos ganaréis viento fresco.</p>
+          <div class="hero-actions">
+            <button id="startButton" class="primary-button" type="button">Empezar misión</button>
+            <button id="resetStorageStart" class="ghost-button" type="button">Reiniciar partida</button>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="assets/img/fan.gif" alt="">
+          <img src="assets/img/hojas.gif" alt="">
+          <img src="assets/img/arbol.gif" alt="">
+        </div>
+      </div>
+    </section>
+
+    <section id="screenSetup" class="screen setup-screen" aria-labelledby="setupTitle">
+      <div class="panel wide">
+        <p class="eyebrow">Preparación de equipos</p>
+        <h1 id="setupTitle">Configurar la misión</h1>
+        <p class="notice">Organizad los equipos intentando que haya un número parecido de personas en cada uno.</p>
+
+        <div class="setup-row">
+          <label for="teamCount">Numero de equipos</label>
+          <select id="teamCount">
+            <option value="2" selected>2 equipos</option>
+            <option value="3">3 equipos</option>
+            <option value="4">4 equipos</option>
+          </select>
+        </div>
+
+        <div id="teamInputs" class="team-inputs"></div>
+
+        <div class="setup-actions">
+          <button id="drawStarter" class="secondary-button" type="button">Sortear inicio</button>
+          <output id="starterResult" class="starter-result" aria-live="polite"></output>
+          <button id="createBoard" class="primary-button" type="button">Crear tablero</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="screenGame" class="screen game-screen" aria-labelledby="gameTitle">
+      <header class="game-header">
+        <div>
+          <h1 id="gameTitle">Operación Ventilador</h1>
+          <p id="windPhrase" class="wind-phrase" aria-live="polite"></p>
+        </div>
+        <div class="turn-card">
+          <span>Turno actual</span>
+          <strong id="currentTurnName"></strong>
+          <button id="changeTurn" class="ghost-button small" type="button">Cambiar turno</button>
+        </div>
+      </header>
+
+      <section id="scoreboard" class="scoreboard" aria-label="Marcadores"></section>
+
+      <div class="game-layout">
+        <section class="board-panel" aria-labelledby="boardTitle">
+          <div class="section-head">
+            <h2 id="boardTitle">Tablero 5x5</h2>
+            <div class="board-actions">
+              <button id="turboButton" class="secondary-button small" type="button">Modo ventilador turbo</button>
+              <button id="resetGame" class="ghost-button small" type="button">Reiniciar partida</button>
+            </div>
+          </div>
+          <div id="board" class="board" aria-label="Tablero de preguntas"></div>
+        </section>
+
+        <aside class="legend-panel" aria-label="Leyenda">
+          <h2>Leyenda</h2>
+          <p><span class="pill math">Mates</span> 20 puntos</p>
+          <p><span class="pill physics">Física</span> 20 puntos</p>
+          <p><span class="pill chemistry">Química</span> 20 puntos</p>
+          <p><span class="pill bonus">Bonus</span> 30 puntos</p>
+          <img src="assets/img/tornado.gif" alt="Tornado animado decorativo" class="legend-gif">
+        </aside>
+      </div>
+    </section>
+
+    <section id="screenFinal" class="screen final-screen" aria-labelledby="finalTitle">
+      <div class="panel final-panel">
+        <img src="assets/img/arbol.gif" alt="Árbol animado" class="final-gif">
+        <h1 id="finalTitle">Misión completada</h1>
+        <p>Habéis sobrevivido a 2º ESO, a junio, a las ecuaciones, a los átomos y a los 40 grados. Eso merece una recompensa.</p>
+        <p class="winner-line">Equipo ganador del marcador: <strong id="winnerName"></strong></p>
+        <p>Pero hoy gana toda la clase.</p>
+        <button id="rewardsButton" class="primary-button" type="button">Repartir recompensas</button>
+        <p id="rewardText" class="reward-text hidden">Todos reciben una goma envuelta y una tarjeta. Quien gane bonus o puntos puede elegir antes.</p>
+        <blockquote>Borra lo que no te ayude y escribe tu propio futuro.</blockquote>
+        <div class="brand-line centered">
+          <img class="brand-logo" src="assets/img/logo-cienciasymates.png" alt="Ciencias y Mates">
+          <a href="https://www.cienciasymates.com" target="_blank" rel="noopener">www.cienciasymates.com</a>
+        </div>
+        <button id="playAgain" class="ghost-button" type="button">Reiniciar partida</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="questionModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <article id="modalCard" class="modal-card">
+      <button id="closeModalTop" class="icon-close" type="button" aria-label="Cerrar">×</button>
+      <div class="modal-meta">
+        <span id="modalCode"></span>
+        <span id="modalCategory"></span>
+        <span id="modalPoints"></span>
+      </div>
+      <h2 id="modalTitle"></h2>
+      <p id="modalSpecial" class="special-note hidden"></p>
+      <div id="questionText" class="question-box hidden"></div>
+      <div id="answerText" class="answer-box hidden"></div>
+
+      <div class="timer">
+        <span id="timerValue">30</span>
+        <div class="timer-actions">
+          <button id="showQuestion" class="secondary-button small" type="button">Mostrar pregunta</button>
+          <button id="startTimer" class="secondary-button small" type="button">Iniciar tiempo</button>
+          <button id="stopTimer" class="ghost-button small" type="button">Fin</button>
+          <button id="showAnswer" class="ghost-button small" type="button">Mostrar respuesta</button>
+        </div>
+      </div>
+
+      <p id="modalMessage" class="modal-message" aria-live="polite"></p>
+      <div class="modal-actions">
+        <button id="correctButton" class="success-button" type="button">Acierto</button>
+        <button id="wrongButton" class="danger-button" type="button">Chasco</button>
+        <button id="bounceButton" class="secondary-button hidden" type="button">Rebote al otro equipo</button>
+        <button id="closeModal" class="ghost-button" type="button">Cerrar</button>
+      </div>
+    </article>
+  </div>
+
+  <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+  <div id="windLayer" class="wind-layer" aria-hidden="true"></div>
+
+  <footer class="site-footer">
+    <span>Hecho con amor por Cristina ·</span>
+    <img class="footer-logo" src="assets/img/logo-cienciasymates.png" alt="Ciencias y Mates">
+    <a href="https://www.cienciasymates.com" target="_blank" rel="noopener">www.cienciasymates.com</a>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
