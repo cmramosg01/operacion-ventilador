@@ -66,6 +66,7 @@
 
         <div class="setup-actions">
           <button class="ghost-button" type="button" data-go-start>Volver al inicio</button>
+          <button class="ghost-button" type="button" data-show-rules>¿Cómo se juega?</button>
           <button id="drawStarter" class="secondary-button" type="button">Sortear inicio</button>
           <output id="starterResult" class="starter-result" aria-live="polite"></output>
           <button id="createBoard" class="primary-button" type="button">Crear tablero</button>
@@ -94,11 +95,13 @@
             <h2 id="boardTitle">Tablero 5x5</h2>
             <div class="board-actions">
               <button class="ghost-button small" type="button" data-go-start>Volver al inicio</button>
-              <button id="turboButton" class="secondary-button small" type="button">Modo ventilador turbo</button>
+              <button class="ghost-button small" type="button" data-show-rules>¿Cómo se juega?</button>
+              <button id="ventilarButton" class="secondary-button small" type="button">A Ventilar</button>
               <button id="resetGame" class="ghost-button small" type="button">Reiniciar partida</button>
             </div>
           </div>
           <div id="board" class="board" aria-label="Tablero de preguntas"></div>
+          <img id="boardTornado" class="board-tornado hidden" src="assets/img/tornado.gif" alt="El tornado elige una casilla">
         </section>
 
         <aside class="legend-panel" aria-label="Leyenda">
@@ -134,7 +137,6 @@
 
   <div id="questionModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <article id="modalCard" class="modal-card">
-      <button id="closeModalTop" class="icon-close" type="button" aria-label="Cerrar">×</button>
       <div class="modal-meta">
         <span id="modalCode"></span>
         <span id="modalCategory"></span>
@@ -142,6 +144,7 @@
       </div>
       <h2 id="modalTitle"></h2>
       <p id="modalSpecial" class="special-note hidden"></p>
+      <button id="specialHelpButton" class="secondary-button small hidden" type="button"></button>
       <div id="questionText" class="question-box hidden"></div>
       <div id="answerText" class="answer-box hidden"></div>
 
@@ -160,8 +163,29 @@
         <button id="correctButton" class="success-button" type="button">Acierto</button>
         <button id="wrongButton" class="danger-button" type="button">Chasco</button>
         <button id="bounceButton" class="secondary-button hidden" type="button">Rebote al otro equipo</button>
-        <button id="closeModal" class="ghost-button" type="button">Cerrar</button>
+        <button id="useWindWildcard" class="ghost-button" type="button">A tomar viento</button>
       </div>
+    </article>
+  </div>
+
+  <div id="rulesModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="rulesTitle">
+    <article class="modal-card rules-card">
+      <button id="closeRules" class="icon-close" type="button" aria-label="Cerrar instrucciones">×</button>
+      <p class="eyebrow">Reglas rápidas</p>
+      <h2 id="rulesTitle">¿Cómo se juega?</h2>
+      <ol class="rules-list">
+        <li>Se forman los equipos y se sortea quién empieza.</li>
+        <li>El botón “Ventilar” hace que el tornado elija una casilla al azar.</li>
+        <li>También se puede pulsar una casilla manualmente.</li>
+        <li>Si el equipo acierta, suma puntos, la casilla se apaga y mantiene el turno.</li>
+        <li>Si falla o se acaba el tiempo, hay rebote al siguiente equipo.</li>
+        <li>Si el rebote acierta, ese equipo suma puntos y la casilla se apaga.</li>
+        <li>Si el rebote falla, nadie suma y la casilla sigue disponible.</li>
+        <li>Cada equipo puede usar una vez el comodín “A tomar viento”.</li>
+        <li>En “Modo derretimiento” se puede pedir ayuda a profesor/a, pero se ganan 10 puntos menos.</li>
+        <li>Al final gana el marcador más alto, pero la misión es de toda la clase.</li>
+      </ol>
+      <button id="closeRulesBottom" class="primary-button" type="button">Entendido</button>
     </article>
   </div>
 
