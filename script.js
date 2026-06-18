@@ -43,7 +43,7 @@ const questions = [
   { category: "Matemáticas", className: "math", level: "Potencias", question: "Calcula: 2³ · 2².", answer: "2⁵ = 32.", points: 20, special: "Ráfaga del ventilador" },
   { category: "Matemáticas", className: "math", level: "Fracciones", question: "Calcula: 1/5 + 4/5.", answer: "1.", points: 20, special: "Brisa de ayuda" },
   { category: "Matemáticas", className: "math", level: "Ecuación de primer grado", question: "Resuelve: 3x + 5 = 20.", answer: "x = 5.", points: 20 },
-  { category: "Matemáticas", className: "math", level: "Discriminante", question: "En x² - 5x + 6 = 0, calcula el discriminante.", answer: "Δ = 25 - 24 = 1.", points: 20, special: "Modo derretimiento", specialMessage: "Podéis pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos." },
+  { category: "Matemáticas", className: "math", level: "Discriminante", question: "En x² - 5x + 6 = 0, calcula el discriminante.", answer: "Δ = 25 - 24 = 1.", points: 20, special: "Modo derretimiento", specialMessage: "¡Cerebro derretido! Puedes pedir ayuda a un profe." },
   { category: "Matemáticas", className: "math", level: "Pendiente", question: "¿Cuál es la pendiente de la recta y = 3x - 2?", answer: "3.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Perímetro", question: "Un rectángulo mide 6 cm de largo y 4 cm de ancho. ¿Cuál es su perímetro?", answer: "20 cm.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Porcentaje sencillo", question: "En una clase hay 20 estudiantes y 5 faltan. ¿Qué porcentaje ha faltado?", answer: "25%.", points: 20 },
@@ -57,7 +57,7 @@ const questions = [
   { category: "Química", className: "chemistry", level: "Número atómico", question: "¿Qué indica el número atómico?", answer: "El número de protones del átomo.", points: 20 },
   { category: "Química", className: "chemistry", level: "Símbolo químico", question: "¿Cuál es el símbolo químico del oxígeno?", answer: "O.", points: 20 },
   { category: "Química", className: "chemistry", level: "Agua", question: "Un litro de agua pura tiene una masa aproximada de...", answer: "1 kg.", points: 20 },
-  { category: "Química", className: "chemistry", level: "Moléculas", question: "La unión mediante enlaces químicos de varios átomos se llama...", answer: "Molécula.", points: 20 },
+  { category: "Química", className: "chemistry", level: "Uniones químicas", question: "La unión mediante enlaces químicos de varios átomos se llama...", answer: "Molécula.", points: 20 },
   { category: "Bonus emocional", className: "bonus", level: "Resumen final", question: "Resume en una frase qué ha sido para ti este curso.", answer: "Libre.", points: 30, special: "Soplo de aire fresco" },
   { category: "Bonus emocional", className: "bonus", level: "Lo aprendido", question: "¿Qué piensas que es lo más importante que has aprendido en 2º ESO?", answer: "Libre.", points: 30, special: "Soplo de aire fresco" },
   { category: "Bonus emocional", className: "bonus", level: "Consejo al futuro", question: "¿Qué consejo le darías a alguien que empieza 2º ESO el curso que viene?", answer: "Libre.", points: 30, special: "Soplo de aire fresco" },
@@ -204,6 +204,7 @@ function readTeamNames() {
 
 function normalizeQuestionModes(item) {
   const normalized = { ...item };
+  if (normalized.level === "Moléculas") normalized.level = "Uniones químicas";
   if (["Perímetro", "Temperatura", "Símbolo químico"].includes(normalized.level)) {
     delete normalized.special;
     delete normalized.specialMessage;
@@ -211,7 +212,7 @@ function normalizeQuestionModes(item) {
   if (normalized.level === "Fracciones") normalized.special = "Brisa de ayuda";
   if (normalized.level === "Discriminante") {
     normalized.special = "Modo derretimiento";
-    normalized.specialMessage = "Podéis pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos.";
+    normalized.specialMessage = "¡Cerebro derretido! Puedes pedir ayuda a un profe.";
   }
   return normalized;
 }
@@ -376,7 +377,7 @@ function openModal(item) {
 function specialText(special) {
   const texts = {
     "Ráfaga del ventilador": "Ráfaga del ventilador: si aciertan, ganan 20 puntos extra.",
-    "Modo derretimiento": "Modo derretimiento: pueden pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos.",
+    "Modo derretimiento": "¡Cerebro derretido! Puedes pedir ayuda a un profe.",
     "Brisa de ayuda": "Brisa de ayuda disponible: podéis pedir una pista sin perder puntos.",
     "Soplo de aire fresco": "Soplo de aire fresco: si la respuesta es sincera o bonita, suma 30 puntos."
   };
