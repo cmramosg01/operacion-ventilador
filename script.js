@@ -41,21 +41,21 @@ const questions = [
   { category: "Matemáticas", className: "math", level: "Naturales básico", question: "Un coche recorre 120 km en 2 horas. ¿Cuántos km recorre en 1 hora si mantiene la misma velocidad?", answer: "60 km.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Enteros", question: "Calcula: -8 + 15 - 6.", answer: "1.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Potencias", question: "Calcula: 2³ · 2².", answer: "2⁵ = 32.", points: 20, special: "Ráfaga del ventilador" },
-  { category: "Matemáticas", className: "math", level: "Fracciones", question: "Calcula: 1/5 + 4/5.", answer: "1.", points: 20 },
+  { category: "Matemáticas", className: "math", level: "Fracciones", question: "Calcula: 1/5 + 4/5.", answer: "1.", points: 20, special: "Brisa de ayuda" },
   { category: "Matemáticas", className: "math", level: "Ecuación de primer grado", question: "Resuelve: 3x + 5 = 20.", answer: "x = 5.", points: 20 },
-  { category: "Matemáticas", className: "math", level: "Discriminante", question: "En x² - 5x + 6 = 0, calcula el discriminante.", answer: "Δ = 25 - 24 = 1.", points: 20, special: "Modo derretimiento", specialMessage: "Pregunta difícil: podéis pedir ayuda a un profesor o profesora." },
+  { category: "Matemáticas", className: "math", level: "Discriminante", question: "En x² - 5x + 6 = 0, calcula el discriminante.", answer: "Δ = 25 - 24 = 1.", points: 20, special: "Modo derretimiento", specialMessage: "Podéis pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos." },
   { category: "Matemáticas", className: "math", level: "Pendiente", question: "¿Cuál es la pendiente de la recta y = 3x - 2?", answer: "3.", points: 20 },
-  { category: "Matemáticas", className: "math", level: "Perímetro", question: "Un rectángulo mide 6 cm de largo y 4 cm de ancho. ¿Cuál es su perímetro?", answer: "20 cm.", points: 20, special: "Modo derretimiento" },
+  { category: "Matemáticas", className: "math", level: "Perímetro", question: "Un rectángulo mide 6 cm de largo y 4 cm de ancho. ¿Cuál es su perímetro?", answer: "20 cm.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Porcentaje sencillo", question: "En una clase hay 20 estudiantes y 5 faltan. ¿Qué porcentaje ha faltado?", answer: "25%.", points: 20 },
   { category: "Matemáticas", className: "math", level: "Coordenadas", question: "El punto P(3, -2), ¿en qué cuadrante está?", answer: "Cuarto cuadrante.", points: 20 },
   { category: "Física", className: "physics", level: "Fuerza", question: "¿Qué unidad se usa para medir la fuerza en el Sistema Internacional?", answer: "Newton, N.", points: 20 },
   { category: "Física", className: "physics", level: "Peso", question: "¿Qué fórmula permite calcular el peso?", answer: "P = m · g.", points: 20 },
   { category: "Física", className: "physics", level: "Energía", question: "Di dos tipos de energía.", answer: "Cinética, potencial, térmica, eléctrica, química, luminosa o sonora.", points: 20 },
-  { category: "Física", className: "physics", level: "Temperatura", question: "Nombra dos escalas de temperatura.", answer: "Celsius, Kelvin o Fahrenheit.", points: 20, special: "A tomar viento" },
+  { category: "Física", className: "physics", level: "Temperatura", question: "Nombra dos escalas de temperatura.", answer: "Celsius, Kelvin o Fahrenheit.", points: 20 },
   { category: "Física", className: "physics", level: "Misión espacial", question: "¿Cómo se llama la misión espacial que llevó una nave a la Luna y que programasteis en Scratch?", answer: "Misión Artemis.", points: 20 },
   { category: "Química", className: "chemistry", level: "Átomos", question: "¿Dónde se encuentran los protones y los neutrones?", answer: "En el núcleo del átomo.", points: 20 },
   { category: "Química", className: "chemistry", level: "Número atómico", question: "¿Qué indica el número atómico?", answer: "El número de protones del átomo.", points: 20 },
-  { category: "Química", className: "chemistry", level: "Símbolo químico", question: "¿Cuál es el símbolo químico del oxígeno?", answer: "O.", points: 20, special: "Tornado" },
+  { category: "Química", className: "chemistry", level: "Símbolo químico", question: "¿Cuál es el símbolo químico del oxígeno?", answer: "O.", points: 20 },
   { category: "Química", className: "chemistry", level: "Agua", question: "Un litro de agua pura tiene una masa aproximada de...", answer: "1 kg.", points: 20 },
   { category: "Química", className: "chemistry", level: "Moléculas", question: "La unión mediante enlaces químicos de varios átomos se llama...", answer: "Molécula.", points: 20 },
   { category: "Bonus emocional", className: "bonus", level: "Resumen final", question: "Resume en una frase qué ha sido para ti este curso.", answer: "Libre.", points: 30, special: "Soplo de aire fresco" },
@@ -79,6 +79,10 @@ const sounds = {};
 let activeCell = null;
 let timerId = null;
 let timeLeft = 30;
+let transferredAttempt = false;
+let attemptResolved = false;
+let derretimientoHelpUsed = false;
+let ventilating = false;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
@@ -117,7 +121,7 @@ function bindEvents() {
   $("#drawStarter").addEventListener("click", drawStarter);
   $("#createBoard").addEventListener("click", createGame);
   $("#changeTurn").addEventListener("click", nextTurn);
-  $("#turboButton").addEventListener("click", turboFan);
+  $("#ventilarButton").addEventListener("click", ventilarRandomCell);
   $("#resetGame").addEventListener("click", resetEverything);
   $("#playAgain").addEventListener("click", resetEverything);
   $("#rewardsButton").addEventListener("click", () => $("#rewardText").classList.remove("hidden"));
@@ -130,10 +134,13 @@ function bindEvents() {
   $("#correctButton").addEventListener("click", markCorrect);
   $("#wrongButton").addEventListener("click", markWrong);
   $("#bounceButton").addEventListener("click", bounceQuestion);
-  $("#closeModal").addEventListener("click", closeModal);
-  $("#closeModalTop").addEventListener("click", closeModal);
-  $("#questionModal").addEventListener("click", (event) => {
-    if (event.target.id === "questionModal") closeModal();
+  $("#useWindWildcard").addEventListener("click", useWindWildcard);
+  $("#specialHelpButton").addEventListener("click", useSpecialHelp);
+  $$('[data-show-rules]').forEach((button) => button.addEventListener("click", showRules));
+  $("#closeRules").addEventListener("click", hideRules);
+  $("#closeRulesBottom").addEventListener("click", hideRules);
+  $("#rulesModal").addEventListener("click", (event) => {
+    if (event.target.id === "rulesModal") hideRules();
   });
 }
 
@@ -142,6 +149,9 @@ function loadState() {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!saved || !Array.isArray(saved.teams) || !Array.isArray(saved.board)) return;
     Object.assign(state, saved);
+    state.teams = state.teams.map((team) => ({ ...team, wildcardUsed: Boolean(team.wildcardUsed) }));
+    state.board = state.board.map(normalizeQuestionModes);
+    saveState();
   } catch {
     localStorage.removeItem(STORAGE_KEY);
   }
@@ -187,8 +197,23 @@ function renderTeamInputs() {
 function readTeamNames() {
   return $$("[data-team-name]").map((input, index) => ({
     name: input.value.trim() || suggestedNames[index],
-    points: 0
+    points: 0,
+    wildcardUsed: false
   }));
+}
+
+function normalizeQuestionModes(item) {
+  const normalized = { ...item };
+  if (["Perímetro", "Temperatura", "Símbolo químico"].includes(normalized.level)) {
+    delete normalized.special;
+    delete normalized.specialMessage;
+  }
+  if (normalized.level === "Fracciones") normalized.special = "Brisa de ayuda";
+  if (normalized.level === "Discriminante") {
+    normalized.special = "Modo derretimiento";
+    normalized.specialMessage = "Podéis pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos.";
+  }
+  return normalized;
 }
 
 function drawStarter() {
@@ -204,7 +229,7 @@ function createGame() {
   state.teams = readTeamNames();
   state.currentTeam = state.starterDrawn ?? Math.floor(Math.random() * state.teams.length);
   state.board = shuffle(questions).map((item, index) => ({
-    ...item,
+    ...normalizeQuestionModes(item),
     code: boardCode(index),
     id: `${item.category}-${item.level}-${index}`
   }));
@@ -247,6 +272,9 @@ function renderScores() {
         <button type="button" data-score="${index}" data-delta="-10">-10</button>
         <button type="button" data-reset-score="${index}">Reset</button>
       </div>
+      <button type="button" class="wildcard-control ${team.wildcardUsed ? "used" : ""}" data-wildcard="${index}" ${(team.wildcardUsed || !activeCell || index !== state.currentTeam || transferredAttempt || attemptResolved) ? "disabled" : ""}>
+        ${team.wildcardUsed ? "A tomar viento · usado" : "A tomar viento · disponible"}
+      </button>
     `;
     scoreboard.appendChild(card);
   });
@@ -255,6 +283,11 @@ function renderScores() {
   });
   $$("[data-reset-score]").forEach((button) => {
     button.addEventListener("click", () => resetScore(Number(button.dataset.resetScore)));
+  });
+  $$("[data-wildcard]").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (Number(button.dataset.wildcard) === state.currentTeam) useWindWildcard();
+    });
   });
 }
 
@@ -289,7 +322,6 @@ function axis(text) {
 }
 
 function closedSymbol(item) {
-  if (item.special === "Tornado") return "T";
   if (item.special === "Ráfaga del ventilador") return "V";
   if (item.className === "bonus") return "★";
   return "?";
@@ -309,8 +341,12 @@ function renderWindPhrase() {
 }
 
 function openModal(item) {
+  if (ventilating) return;
   activeCell = item;
   timeLeft = 30;
+  transferredAttempt = false;
+  attemptResolved = false;
+  derretimientoHelpUsed = false;
   stopTimer();
   $("#timerValue").textContent = "30";
   $("#modalCode").textContent = item.code;
@@ -322,25 +358,58 @@ function openModal(item) {
   $("#questionText").classList.add("hidden");
   $("#answerText").classList.add("hidden");
   $("#bounceButton").classList.add("hidden");
+  $("#correctButton").disabled = false;
+  $("#wrongButton").disabled = false;
   $("#modalMessage").textContent = "";
+  configureSpecialControls(item);
   if (item.special) {
     $("#modalSpecial").textContent = item.specialMessage || specialText(item.special);
     $("#modalSpecial").classList.remove("hidden");
   } else {
     $("#modalSpecial").classList.add("hidden");
   }
+  updateWildcardButton();
   $("#questionModal").classList.remove("hidden");
+  renderScores();
 }
 
 function specialText(special) {
   const texts = {
     "Ráfaga del ventilador": "Ráfaga del ventilador: si aciertan, ganan 20 puntos extra.",
-    "Modo derretimiento": "Modo derretimiento: pueden pedir ayuda a una profesora.",
-    "A tomar viento": "A tomar viento: pueden elegir a alguien del otro equipo para responder.",
-    "Tornado": "Tornado: pueden descartar esta pregunta y elegir otra sin penalización.",
+    "Modo derretimiento": "Modo derretimiento: pueden pedir ayuda a un profesor o profesora. Con ayuda, el acierto vale 10 puntos.",
+    "Brisa de ayuda": "Brisa de ayuda disponible: podéis pedir una pista sin perder puntos.",
     "Soplo de aire fresco": "Soplo de aire fresco: si la respuesta es sincera o bonita, suma 30 puntos."
   };
   return texts[special] || special;
+}
+
+function configureSpecialControls(item) {
+  const button = $("#specialHelpButton");
+  button.classList.add("hidden");
+  button.disabled = false;
+  if (item.special === "Modo derretimiento") {
+    button.textContent = "Pedir ayuda a profesor/a";
+    button.classList.remove("hidden");
+  } else if (item.special === "Brisa de ayuda") {
+    button.textContent = "Pedir brisa de ayuda";
+    button.classList.remove("hidden");
+  }
+}
+
+function useSpecialHelp() {
+  if (!activeCell || attemptResolved) return;
+  const button = $("#specialHelpButton");
+  if (activeCell.special === "Modo derretimiento") {
+    derretimientoHelpUsed = true;
+    button.disabled = true;
+    button.textContent = "Ayuda solicitada · acierto: 10 puntos";
+    $("#modalPoints").textContent = "10 puntos con ayuda";
+    $("#modalSpecial").textContent = "Modo derretimiento activado: podéis consultar a un profesor o profesora.";
+  } else if (activeCell.special === "Brisa de ayuda") {
+    button.disabled = true;
+    button.textContent = "Brisa mostrada";
+    $("#modalSpecial").textContent = "Brisa de ayuda: el resultado es un número entero.";
+  }
 }
 
 function revealQuestion() {
@@ -352,6 +421,7 @@ function revealAnswer() {
 }
 
 function startTimer() {
+  if (attemptResolved) return;
   revealQuestion();
   stopTimer();
   timeLeft = 30;
@@ -359,7 +429,10 @@ function startTimer() {
   timerId = setInterval(() => {
     timeLeft -= 1;
     $("#timerValue").textContent = timeLeft;
-    if (timeLeft <= 0) stopTimer();
+    if (timeLeft <= 0) {
+      stopTimer();
+      markWrong("timeout");
+    }
   }, 1000);
 }
 
@@ -369,34 +442,91 @@ function stopTimer() {
 }
 
 function markCorrect() {
-  if (!activeCell) return;
+  if (!activeCell || attemptResolved) return;
+  attemptResolved = true;
+  stopTimer();
   const extra = activeCell.special === "Ráfaga del ventilador" ? 20 : 0;
-  adjustScore(state.currentTeam, activeCell.points + extra, false);
+  const helpPenalty = activeCell.special === "Modo derretimiento" && derretimientoHelpUsed ? 10 : 0;
+  const awardedPoints = Math.max(0, activeCell.points + extra - helpPenalty);
+  adjustScore(state.currentTeam, awardedPoints, false);
   if (activeCell.special === "Soplo de aire fresco") playSound("applause");
   else if (activeCell.special === "Ráfaga del ventilador") playSound("whooshes");
   else playSound("tada");
   completeActiveCell();
   confetti();
-  $("#modalMessage").textContent = "Acierto. Brisa de gloria para el equipo.";
+  $("#correctButton").disabled = true;
+  $("#wrongButton").disabled = true;
+  $("#modalMessage").textContent = `Acierto: ${state.teams[state.currentTeam].name} suma ${awardedPoints} puntos y mantiene el turno.`;
   setTimeout(() => {
     closeModal();
-    nextTurn();
+    renderAll();
   }, 900);
 }
 
-function markWrong() {
+function markWrong(reason = "button") {
+  if (!activeCell || attemptResolved) return;
+  attemptResolved = true;
+  stopTimer();
   playSound("shock");
-  $("#modalMessage").textContent = failMessages[Math.floor(Math.random() * failMessages.length)];
-  $("#bounceButton").classList.remove("hidden");
+  $("#correctButton").disabled = true;
+  $("#wrongButton").disabled = true;
   $("#modalCard").classList.add("shake");
   setTimeout(() => $("#modalCard").classList.remove("shake"), 420);
+  if (transferredAttempt) {
+    const cause = reason === "timeout" ? "Se acabó el tiempo" : "Chasco en el rebote";
+    $("#modalMessage").textContent = `${cause}. Nadie puntúa, la casilla queda disponible y el turno es de ${state.teams[state.currentTeam].name}.`;
+    setTimeout(() => {
+      closeModal();
+      renderAll();
+    }, 1500);
+    return;
+  }
+  const message = reason === "timeout"
+    ? "Se acabó el tiempo. Chasco: activa el rebote al siguiente equipo."
+    : `${failMessages[Math.floor(Math.random() * failMessages.length)]} Activa el rebote.`;
+  $("#modalMessage").textContent = message;
+  $("#bounceButton").classList.remove("hidden");
+  $("#useWindWildcard").disabled = true;
 }
 
 function bounceQuestion() {
+  if (!activeCell || !attemptResolved || transferredAttempt) return;
+  transferQuestion("Rebote");
+}
+
+function transferQuestion(label) {
   nextTurn();
+  transferredAttempt = true;
+  attemptResolved = false;
+  timeLeft = 30;
+  $("#timerValue").textContent = timeLeft;
+  $("#answerText").classList.add("hidden");
+  $("#bounceButton").classList.add("hidden");
+  $("#correctButton").disabled = false;
+  $("#wrongButton").disabled = false;
+  $("#specialHelpButton").disabled = true;
+  updateWildcardButton();
   playSound(Math.random() > 0.5 ? "viento" : "whooshes");
   windBurst();
-  $("#modalMessage").textContent = `Rebote para ${state.teams[state.currentTeam].name}.`;
+  $("#modalMessage").textContent = `${label} para ${state.teams[state.currentTeam].name}. Debe responder; si falla, la casilla quedará disponible.`;
+}
+
+function useWindWildcard() {
+  if (!activeCell || attemptResolved || transferredAttempt) return;
+  const team = state.teams[state.currentTeam];
+  if (!team || team.wildcardUsed) return;
+  team.wildcardUsed = true;
+  saveState();
+  renderScores();
+  transferQuestion("A tomar viento");
+}
+
+function updateWildcardButton() {
+  const button = $("#useWindWildcard");
+  const team = state.teams[state.currentTeam];
+  if (!team) return;
+  button.textContent = team.wildcardUsed ? "A tomar viento · ya usado" : `A tomar viento · ${team.name}`;
+  button.disabled = team.wildcardUsed || transferredAttempt || attemptResolved;
 }
 
 function completeActiveCell() {
@@ -416,6 +546,10 @@ function completeActiveCell() {
 function closeModal() {
   stopTimer();
   $("#questionModal").classList.add("hidden");
+  activeCell = null;
+  transferredAttempt = false;
+  attemptResolved = false;
+  derretimientoHelpUsed = false;
 }
 
 function adjustScore(index, delta, rerender = true) {
@@ -471,11 +605,36 @@ function toggleFullscreen() {
   }
 }
 
-function turboFan() {
-  $("#floatingFan").classList.add("turbo");
+function ventilarRandomCell() {
+  if (ventilating || activeCell) return;
+  const available = state.board.filter((item) => !state.completed.includes(item.id));
+  if (!available.length) return;
+  ventilating = true;
+  const chosen = available[Math.floor(Math.random() * available.length)];
+  const tornado = $("#boardTornado");
+  const button = $("#ventilarButton");
+  button.disabled = true;
+  $("#board").classList.add("selecting");
+  tornado.classList.remove("hidden", "choosing");
+  void tornado.offsetWidth;
+  tornado.classList.add("choosing");
   playSound("whooshes");
-  windBurst();
-  setTimeout(() => $("#floatingFan").classList.remove("turbo"), 1300);
+  setTimeout(() => {
+    tornado.classList.remove("choosing");
+    tornado.classList.add("hidden");
+    $("#board").classList.remove("selecting");
+    button.disabled = false;
+    ventilating = false;
+    openModal(chosen);
+  }, 1700);
+}
+
+function showRules() {
+  $("#rulesModal").classList.remove("hidden");
+}
+
+function hideRules() {
+  $("#rulesModal").classList.add("hidden");
 }
 
 function confetti() {
@@ -515,6 +674,14 @@ function resetEverything() {
     sound: false,
     starterDrawn: null
   });
+  activeCell = null;
+  transferredAttempt = false;
+  attemptResolved = false;
+  derretimientoHelpUsed = false;
+  ventilating = false;
+  stopTimer();
+  $("#questionModal").classList.add("hidden");
+  $("#rulesModal").classList.add("hidden");
   $("#teamCount").value = "2";
   $("#starterResult").textContent = "";
   renderTeamInputs();
