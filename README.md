@@ -1,31 +1,65 @@
 # Operación Ventilador
 
-**La última misión de 2º ESO**
+## La última misión de 2.º ESO
 
-Juego interactivo de despedida para 2º ESO A: preguntas de Matemáticas, Física y Química, bonus emocionales, marcadores por equipos, sonidos, ventilador animado y misión final de supervivencia al calor de junio.
+**Operación Ventilador** es un juego interactivo de despedida para 2.º ESO A, creado para cerrar el curso con humor, emoción y algo de épica de aula en junio.
 
-## Jugar
+👉 **[Jugar a Operación Ventilador](https://cmramosg01.github.io/operacion-ventilador/)**
 
-👉 **[Abrir Operación Ventilador](https://cmramosg01.github.io/operacion-ventilador/)**
+---
 
-## Descripción
+## ¿Qué es?
 
-**Operación Ventilador** es una pequeña web-juego creada para una sesión especial de final de curso.
+Una pequeña web-juego para jugar en clase por equipos, con tablero 5x5, preguntas, sonidos, efectos visuales y un tornado que puede elegir casillas al azar.
 
-El alumnado participa por equipos en un tablero 5x5 con preguntas curriculares y casillas especiales. Hay marcadores, sonidos, efectos visuales y una misión común: sobrevivir al final de curso con 40º.
+El juego mezcla preguntas de:
 
-Aunque haya marcador, la idea es que todo el mundo participe y reciba una recompensa.
+* Matemáticas
+* Física
+* Química
+* Bonus emocionales de despedida
 
-## Contenidos
+Aunque hay marcador, la misión no va solo de ganar: la idea es participar, recordar el curso y despedir 2.º ESO de una forma especial.
 
-- Matemáticas
-- Física
-- Química
-- Bonus emocionales de despedida
-- Trabajo en equipo
-- Participación de profes valientes
+---
+
+## ¿Cómo se juega?
+
+1. Se crean entre 2 y 4 equipos.
+2. Se sortea qué equipo empieza.
+3. El equipo de turno responde una pregunta del tablero.
+4. Se puede elegir una casilla manualmente o usar el botón **A Ventilar** para que el tornado elija una al azar.
+5. Si el equipo acierta, suma puntos y mantiene el turno.
+6. Si falla o se acaba el tiempo, hay rebote al siguiente equipo.
+7. Algunas preguntas incluyen ayudas o modos especiales.
+8. Al final gana el equipo con más puntos, pero la misión es de toda la clase.
+
+---
+
+## Modos especiales
+
+* **Ráfaga del ventilador:** pregunta con puntos extra.
+* **Modo derretimiento:** permite pedir ayuda a un profesor o profesora, con pequeña penalización.
+* **Brisa de ayuda:** ofrece una pista sin perder puntos.
+* **A tomar viento:** comodín de equipo para pasar una pregunta al siguiente equipo.
+* **Soplo de aire fresco:** bonus emocional para respuestas sinceras o bonitas.
+
+---
+
+## Recursos
+
+El juego utiliza recursos locales:
+
+* GIFs animados en `assets/img/`
+* Sonidos en `assets/sounds/`
+* HTML, CSS y JavaScript puro
+
+No necesita backend ni instalación. Está publicado con GitHub Pages.
+
+---
 
 ## Autora
 
-Hecho con amor por Cristina.  
-[www.cienciasymates.com](https://www.cienciasymates.com)
+Hecho con cariño por **Cristina Ramos García**.
+
+🌐 [www.cienciasymates.com](https://www.cienciasymates.com)
